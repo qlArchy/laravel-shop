@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Exceptions\CouponCodeUnavailableException;
+use App\Models\User;
 class CouponCode extends Model
 {
     // 用常量的方式定义支持的优惠券类型
@@ -60,7 +61,7 @@ class CouponCode extends Model
 
         return $code;
     }
-    public function checkAvailable($orderAmount = null)
+    public function checkAvailable(User $user, $orderAmount = null)
     {
         if (!$this->enabled) {
             throw new CouponCodeUnavailableException('优惠券不存在');
