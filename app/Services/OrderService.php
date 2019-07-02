@@ -29,6 +29,7 @@ class OrderService
                     'zip'           => $address->zip,
                     'contact_name'  => $address->contact_name,
                     'contact_phone' => $address->contact_phone,
+                    'type'          => Order::TYPE_NORMAL,
                 ],
                 'remark'       => $remark,
                 'total_amount' => 0,
@@ -84,7 +85,6 @@ class OrderService
     // 新建一个 crowdfunding 方法用于实现众筹商品下单逻辑
     public function crowdfunding(User $user, UserAddress $address, ProductSku $sku, $amount)
     {
-        // 开启事务
         $order = \DB::transaction(function () use ($amount, $sku, $user, $address) {
             // 更新地址最后使用时间
             $address->update(['last_used_at' => Carbon::now()]);
@@ -98,6 +98,7 @@ class OrderService
                 ],
                 'remark'       => '',
                 'total_amount' => $sku->price * $amount,
+                'type'         => Order::TYPE_CROWDFUNDING,
             ]);
             // 订单关联到当前用户
             $order->user()->associate($user);
