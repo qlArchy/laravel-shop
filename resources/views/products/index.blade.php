@@ -36,7 +36,7 @@
             <div class="col-auto"><button class="btn btn-primary btn-sm">搜索</button></div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 form-sort">
           <select name="order" class="form-control form-control-sm float-right">
             <option value="">排序方式</option>
             <option value="price_asc">价格从低到高</option>
