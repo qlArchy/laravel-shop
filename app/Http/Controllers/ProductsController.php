@@ -33,6 +33,7 @@ class ProductsController extends Controller
                 ],
             ],
         ];
+
         if ($request->input('category_id') && $category = Category::find($request->input('category_id'))) {
             if ($category->is_directory) {
                 // 如果是一个父类目，则使用 category_path 来筛选
@@ -107,8 +108,8 @@ class ProductsController extends Controller
                         // 指明 nested 字段
                         'path'  => 'properties',
                         'query' => [
-                            ['term' => ['properties.name' => $name]],
-                            ['term' => ['properties.value' => $value]],
+                            // 将原来的两个 term 查询改成一个
+                            ['term' => ['properties.search_value' => $filter]],
                         ],
                     ],
                 ];
