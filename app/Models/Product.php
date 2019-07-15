@@ -86,6 +86,7 @@ class Product extends Model
 
         return $arr;
     }
+
     public function crowdfunding()
     {
         return $this->hasOne(CrowdfundingProduct::class);
